@@ -1,4 +1,3 @@
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -124,8 +123,6 @@
 .restart-btn:hover{opacity:.85;}
 </style>
 
-<h2 class="sr-only">Vírus terjedés szimulációs játék — matematika feladatokkal</h2>
-
 <div id="root">
 
 <div id="setup-screen" class="screen active">
@@ -158,14 +155,29 @@
   </div>
   <div class="setup-section">
     <div class="setup-label">Körök száma</div>
-    <div class="rounds-row">
-      <div class="pick-btn sel" data-r="3" onclick="pickRounds(3)"><div class="pname">3 kör</div><div class="pdesc">Gyors</div></div>
-      <div class="pick-btn" data-r="5" onclick="pickRounds(5)"><div class="pname">5 kör</div><div class="pdesc">Normál</div></div>
-      <div class="pick-btn" data-r="7" onclick="pickRounds(7)"><div class="pname">7 kör</div><div class="pdesc">Hosszú</div></div>
-      <div class="pick-btn" data-r="10" onclick="pickRounds(10)"><div class="pname">10 kör</div><div class="pdesc">Maraton</div></div>
+    <div style="background:var(--bg2);border:0.5px solid rgba(127,119,221,0.2);border-radius:var(--brad);padding:clamp(12px,1.5vw,20px) clamp(14px,1.8vw,24px);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(8px,1vw,14px);">
+        <span style="font-size:var(--fss);color:var(--txts);">Válassz 3 és 30 kör között:</span>
+        <span id="rounds-display" style="font-size:clamp(18px,2.5vw,28px);font-weight:500;color:#CECBF6;">5 kör</span>
+      </div>
+      <input type="range" id="rounds-slider" min="3" max="30" value="5"
+        oninput="pickRounds(+this.value)"
+        style="width:100%;accent-color:var(--accent);cursor:pointer;height:clamp(4px,.5vw,6px);">
+      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:clamp(9px,.9vw,12px);color:var(--muted);">
+        <span>3</span><span>10</span><span>20</span><span>30</span>
+      </div>
     </div>
   </div>
   <button class="start-btn" onclick="startGame()"><i class="ti ti-player-play" aria-hidden="true"></i> Szimuláció indítása</button>
+  <div style="margin-top:clamp(10px,1.5vw,18px);background:var(--bg1);border:0.5px solid rgba(127,119,221,0.18);border-radius:var(--brad);padding:clamp(10px,1.3vw,16px) clamp(12px,1.5vw,20px);display:flex;align-items:flex-start;gap:10px;">
+    <i class="ti ti-info-circle" style="color:#AFA9EC;font-size:clamp(16px,2vw,22px);flex-shrink:0;margin-top:1px" aria-hidden="true"></i>
+    <div style="font-size:var(--fss);color:var(--txts);line-height:1.7;">
+      <span style="color:#CECBF6;font-weight:500;">Hogyan értékeld a teljesítményed?</span><br>
+      A szimuláció végén megjelenik az összesített <span style="color:#AFA9EC;font-weight:500;">terjedési pont</span> és az <span style="color:#F09595;font-weight:500;">elfertőződött zónák</span> száma.
+      Minél <span style="color:#5DCAA5;font-weight:500;">kevesebb fertőzési pontod</span> vagy <span style="color:#5DCAA5;font-weight:500;">elfertőződött zónád</span> van a végén, annál jobban teljesítettél —
+      ez azt jelenti, hogy időben megfékezted a legveszélyesebb gócpontokat, és megakadályoztál több eset elszabadulását.
+    </div>
+  </div>
 </div>
 
 <div id="game-screen" class="screen">
@@ -179,7 +191,7 @@
   <div class="hud">
     <div class="hud-card"><div class="hud-label">Kör</div><div class="hud-val blue" id="hud-round">1</div></div>
     <div class="hud-card"><div class="hud-label">Aktív zónák</div><div class="hud-val red" id="hud-active">2</div></div>
-    <div class="hud-card"><div class="hud-label">Lefertőzve</div><div class="hud-val pur" id="hud-spread">0</div></div>
+    <div class="hud-card"><div class="hud-label">Elfertőződött</div><div class="hud-val pur" id="hud-spread">0</div></div>
     <div class="hud-card"><div class="hud-label">Megfékezve</div><div class="hud-val teal" id="hud-cont">0</div></div>
     <div class="hud-card"><div class="hud-label">Terjedési pont</div><div class="hud-val green" id="hud-score">0</div></div>
   </div>
@@ -196,7 +208,7 @@
     <div class="res-sub" id="res-sub"></div>
     <div class="res-stats">
       <div class="res-stat"><div class="res-num" style="color:#F09595" id="res-spread"></div><div class="res-lbl">összes terjedési pont (y)</div></div>
-      <div class="res-stat"><div class="res-num" style="color:#5DCAA5" id="res-cont"></div><div class="res-lbl">teljesen lefertőzött zóna</div></div>
+      <div class="res-stat"><div class="res-num" style="color:#5DCAA5" id="res-cont"></div><div class="res-lbl">teljesen elfertőződött zóna</div></div>
     </div>
     <div class="res-log" id="res-log"></div>
     <button class="restart-btn" onclick="restart()"><i class="ti ti-refresh" aria-hidden="true"></i> Új szimuláció</button>
@@ -221,7 +233,7 @@ const TYPES=[
    tpl:(x,y,p,c,z,zp)=>`Aktív telepek száma <b>${x}</b>. Sporaterjedés <b>y=${y} telep/kör</b>. <b>${zp}% eséllyel ${z}×-os</b> spórakitörés. Ha nem: <b>${x}+${y}=${x+y}</b>, ha igen: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Befertőzhető kapacitás: <b>${c} telep</b>.`},
   {name:'Prion-fertőzés',icon:'<i class="ti ti-brain" aria-hidden="true"></i>',pathogen:'Prion-fehérje',area:'idegszövet',unit:'reg.',
    tpl:(x,y,p,c,z,zp)=>`Érintett régiók: <b>${x}</b>. Áthajtási ráta <b>y=${y} reg./kör</b>. <b>${zp}% eséllyel ${z}×-os</b> láncolatot indít. Normál: <b>${x}+${y}=${x+y}</b>, kaszkád: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Kritikus küszöb: <b>${c} reg.</b>`},
-  {name:'Víruszárvány',icon:'<i class="ti ti-flask" aria-hidden="true"></i>',pathogen:'Influenza-rekombináns',area:'sejtpopuláció',unit:'sejt',
+  {name:'Vírusjárvány',icon:'<i class="ti ti-flask" aria-hidden="true"></i>',pathogen:'Influenza-rekombináns',area:'sejtpopuláció',unit:'sejt',
    tpl:(x,y,p,c,z,zp)=>`Fertőzött sejtek: <b>${x}</b>. Replikációs ráta <b>y=${y} sejt/kör</b>. <b>${zp}% eséllyel ${z}×-os</b> replikációs bumm. Ha nem: <b>${x}+${y}=${x+y}</b>, ha igen: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Kapacitás: <b>${c} sejt</b>.`}
 ];
 
@@ -248,7 +260,7 @@ function mkZone(){
 }
 
 function pickDiff(d){G.diff=d;document.querySelectorAll('[data-diff]').forEach(e=>e.classList.toggle('sel',e.dataset.diff===d));}
-function pickRounds(r){G.rounds=r;document.querySelectorAll('[data-r]').forEach(e=>e.classList.toggle('sel',+e.dataset.r===r));}
+function pickRounds(r){G.rounds=r;const d=document.getElementById('rounds-display');if(d)d.textContent=r+' kör';}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
 function startGame(){
