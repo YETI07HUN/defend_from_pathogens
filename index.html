@@ -1,447 +1,456 @@
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --fs:clamp(12px,1.5vw,17px);
-  --fss:clamp(11px,1.2vw,15px);
-  --fsl:clamp(14px,1.8vw,20px);
-  --fsh:clamp(16px,2.2vw,24px);
-  --gap:clamp(8px,1vw,14px);
-  --brad:clamp(8px,1vw,14px);
-  --bg0:#0d0a1a;
-  --bg1:#13102a;
-  --bg2:#1a1635;
-  --bg3:#221e40;
-  --accent:#7F77DD;
-  --accent2:#1D9E75;
-  --accent3:#85B7EB;
-  --muted:#6b6490;
-  --txt:#ccc8ef;
-  --txts:#9890c4;
-}
-#root{background:var(--bg0);min-height:100vh;padding:clamp(10px,2vw,28px);font-family:var(--font-sans,sans-serif);font-size:var(--fs);color:var(--txt);}
-.screen{display:none;}.screen.active{display:block;}
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Védekezz a kórokozók ellen</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --fs:clamp(12px,1.5vw,17px);
+      --fss:clamp(11px,1.2vw,15px);
+      --fsl:clamp(14px,1.8vw,20px);
+      --fsh:clamp(16px,2.2vw,24px);
+      --gap:clamp(8px,1vw,14px);
+      --brad:clamp(8px,1vw,14px);
+      --bg0:#0d0a1a;
+      --bg1:#13102a;
+      --bg2:#1a1635;
+      --bg3:#221e40;
+      --accent:#7F77DD;
+      --accent2:#1D9E75;
+      --accent3:#85B7EB;
+      --muted:#6b6490;
+      --txt:#ccc8ef;
+      --txts:#9890c4;
+    }
+    #root{background:var(--bg0);min-height:100vh;padding:clamp(10px,2vw,28px);font-family:var(--font-sans,sans-serif);font-size:var(--fs);color:var(--txt);}
+    .screen{display:none;}.screen.active{display:block;}
 
-.topbar{display:flex;align-items:center;gap:12px;margin-bottom:clamp(14px,1.8vw,22px);border-bottom:0.5px solid rgba(127,119,221,0.25);padding-bottom:clamp(10px,1.2vw,16px);}
-.topbar-title{font-size:var(--fsh);font-weight:500;color:#CECBF6;}
-.topbar-sub{font-size:var(--fss);color:var(--muted);margin-top:3px;}
+    .topbar{display:flex;align-items:center;gap:12px;margin-bottom:clamp(14px,1.8vw,22px);border-bottom:0.5px solid rgba(127,119,221,0.25);padding-bottom:clamp(10px,1.2vw,16px);}
+    .topbar-title{font-size:var(--fsh);font-weight:500;color:#CECBF6;}
+    .topbar-sub{font-size:var(--fss);color:var(--muted);margin-top:3px;}
 
-.setup-section{margin-bottom:clamp(10px,1.5vw,18px);}
-.setup-label{font-size:clamp(10px,1vw,13px);color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:clamp(6px,.8vw,10px);}
-.diff-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap);}
-.rounds-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:var(--gap);}
-.pick-btn{background:var(--bg2);border:0.5px solid rgba(127,119,221,0.2);border-radius:var(--brad);padding:clamp(8px,1.2vw,16px) clamp(6px,1vw,12px);cursor:pointer;text-align:center;transition:border-color .15s,background .15s;}
-.pick-btn:hover{background:var(--bg3);border-color:rgba(127,119,221,0.5);}
-.pick-btn.sel{background:#261e52;border:1.5px solid var(--accent);}
-.pick-btn .pname{font-size:var(--fsl);font-weight:500;color:#CECBF6;}
-.pick-btn .pdesc{font-size:var(--fss);color:var(--txts);margin-top:3px;}
-.pick-btn .pbig{font-size:clamp(18px,2.5vw,28px);margin-bottom:5px;}
-.start-btn{width:100%;padding:clamp(10px,1.5vw,18px);background:var(--accent);color:#fff;border:none;border-radius:var(--brad);font-size:var(--fsl);font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:clamp(4px,.5vw,8px);}
-.start-btn:hover{opacity:.88;}
+    .setup-section{margin-bottom:clamp(10px,1.5vw,18px);}
+    .setup-label{font-size:clamp(10px,1vw,13px);color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:clamp(6px,.8vw,10px);}
+    .diff-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap);}
+    .rounds-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:var(--gap);}
+    .pick-btn{background:var(--bg2);border:0.5px solid rgba(127,119,221,0.2);border-radius:var(--brad);padding:clamp(8px,1.2vw,16px) clamp(6px,1vw,12px);cursor:pointer;text-align:center;transition:border-color .15s,background .15s;}
+    .pick-btn:hover{background:var(--bg3);border-color:rgba(127,119,221,0.5);}
+    .pick-btn.sel{background:#261e52;border:1.5px solid var(--accent);}
+    .pick-btn .pname{font-size:var(--fsl);font-weight:500;color:#CECBF6;}
+    .pick-btn .pdesc{font-size:var(--fss);color:var(--txts);margin-top:3px;}
+    .pick-btn .pbig{font-size:clamp(18px,2.5vw,28px);margin-bottom:5px;}
+    .start-btn{width:100%;padding:clamp(10px,1.5vw,18px);background:var(--accent);color:#fff;border:none;border-radius:var(--brad);font-size:var(--fsl);font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:clamp(4px,.5vw,8px);}
+    .start-btn:hover{opacity:.88;}
 
-.hud{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap);margin-bottom:clamp(8px,1vw,14px);}
-.hud-card{background:var(--bg2);border-radius:clamp(6px,.8vw,10px);padding:clamp(8px,1vw,14px) clamp(8px,1.2vw,14px);text-align:center;}
-.hud-label{font-size:clamp(9px,.9vw,12px);color:var(--muted);margin-bottom:2px;}
-.hud-val{font-size:clamp(16px,2.2vw,26px);font-weight:500;}
-.hud-val.pur{color:#AFA9EC;}
-.hud-val.teal{color:#5DCAA5;}
-.hud-val.blue{color:#85B7EB;}
-.hud-val.red{color:#F09595;}
-.hud-val.green{color:#97C459;}
+    .hud{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap);margin-bottom:clamp(8px,1vw,14px);}
+    .hud-card{background:var(--bg2);border-radius:clamp(6px,.8vw,10px);padding:clamp(8px,1vw,14px) clamp(8px,1.2vw,14px);text-align:center;}
+    .hud-label{font-size:clamp(9px,.9vw,12px);color:var(--muted);margin-bottom:2px;}
+    .hud-val{font-size:clamp(16px,2.2vw,26px);font-weight:500;}
+    .hud-val.pur{color:#AFA9EC;}
+    .hud-val.teal{color:#5DCAA5;}
+    .hud-val.blue{color:#85B7EB;}
+    .hud-val.red{color:#F09595;}
+    .hud-val.green{color:#97C459;}
 
-.hint-bar{text-align:center;font-size:var(--fss);color:var(--txts);margin-bottom:clamp(8px,1vw,14px);padding:clamp(6px,.8vw,10px);background:var(--bg1);border-radius:clamp(6px,.8vw,10px);border:0.5px solid rgba(127,119,221,0.12);}
-.hint-bar b{color:var(--accent);font-weight:500;}
+    .hint-bar{text-align:center;font-size:var(--fss);color:var(--txts);margin-bottom:clamp(8px,1vw,14px);padding:clamp(6px,.8vw,10px);background:var(--bg1);border-radius:clamp(6px,.8vw,10px);border:0.5px solid rgba(127,119,221,0.12);}
+    .hint-bar b{color:var(--accent);font-weight:500;}
 
-.zones-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(240px,28vw,340px),1fr));gap:var(--gap);margin-bottom:clamp(8px,1vw,14px);}
+    .zones-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(240px,28vw,340px),1fr));gap:var(--gap);margin-bottom:clamp(8px,1vw,14px);}
 
-.zone-card{background:var(--bg2);border:0.5px solid rgba(127,119,221,0.2);border-radius:var(--brad);padding:clamp(10px,1.2vw,18px) clamp(12px,1.5vw,20px);cursor:pointer;transition:border-color .15s,background .15s;position:relative;}
-.zone-card:hover:not(.contained):not(.locked){border-color:rgba(127,119,221,0.6);background:var(--bg3);}
-.zone-card.chosen{border:2px solid var(--accent);background:#1e1946;}
-.zone-card.contained{opacity:.38;pointer-events:none;border-color:rgba(29,158,117,0.4);}
-.zone-card.locked{opacity:.6;cursor:not-allowed;border-color:rgba(127,119,221,0.1);}
+    .zone-card{background:var(--bg2);border:0.5px solid rgba(127,119,221,0.2);border-radius:var(--brad);padding:clamp(10px,1.2vw,18px) clamp(12px,1.5vw,20px);cursor:pointer;transition:border-color .15s,background .15s;position:relative;}
+    .zone-card:hover:not(.contained):not(.locked){border-color:rgba(127,119,221,0.6);background:var(--bg3);}
+    .zone-card.chosen{border:2px solid var(--accent);background:#1e1946;}
+    .zone-card.contained{opacity:.38;pointer-events:none;border-color:rgba(29,158,117,0.4);}
+    .zone-card.locked{opacity:.6;cursor:not-allowed;border-color:rgba(127,119,221,0.1);}
 
-.new-badge{position:absolute;top:clamp(6px,.8vw,10px);right:clamp(6px,.8vw,10px);background:#261e52;color:#AFA9EC;border:0.5px solid var(--accent);border-radius:4px;padding:2px clamp(6px,.8vw,10px);font-size:var(--fss);font-weight:500;}
+    .new-badge{position:absolute;top:clamp(6px,.8vw,10px);right:clamp(6px,.8vw,10px);background:#261e52;color:#AFA9EC;border:0.5px solid var(--accent);border-radius:4px;padding:2px clamp(6px,.8vw,10px);font-size:var(--fss);font-weight:500;}
 
-.zh{display:flex;align-items:center;gap:clamp(8px,1vw,12px);margin-bottom:clamp(8px,1vw,12px);}
-.zicon{font-size:clamp(22px,2.8vw,34px);line-height:1;}
-.zname{font-size:var(--fsl);font-weight:500;color:#CECBF6;}
-.zsub{font-size:var(--fss);color:var(--txts);margin-top:2px;}
+    .zh{display:flex;align-items:center;gap:clamp(8px,1vw,12px);margin-bottom:clamp(8px,1vw,12px);}
+    .zicon{font-size:clamp(22px,2.8vw,34px);line-height:1;}
+    .zname{font-size:var(--fsl);font-weight:500;color:#CECBF6;}
+    .zsub{font-size:var(--fss);color:var(--txts);margin-top:2px;}
 
-.task-box{background:var(--bg1);border:0.5px solid rgba(127,119,221,0.15);border-radius:clamp(6px,.8vw,10px);padding:clamp(8px,1vw,12px) clamp(10px,1.2vw,14px);font-size:var(--fss);color:var(--txts);margin-bottom:clamp(8px,1vw,12px);line-height:1.7;}
-.task-box b{color:#CECBF6;font-weight:500;}
+    .task-box{background:var(--bg1);border:0.5px solid rgba(127,119,221,0.15);border-radius:clamp(6px,.8vw,10px);padding:clamp(8px,1vw,12px) clamp(10px,1.2vw,14px);font-size:var(--fss);color:var(--txts);margin-bottom:clamp(8px,1vw,12px);line-height:1.7;}
+    .task-box b{color:#CECBF6;font-weight:500;}
 
-.prog-wrap{margin-bottom:clamp(8px,1vw,12px);}
-.prog-labels{display:flex;justify-content:space-between;font-size:var(--fss);color:var(--muted);margin-bottom:5px;}
-.prog-labels b{font-weight:500;}
-.prog-track{height:clamp(7px,.9vw,12px);background:var(--bg0);border-radius:4px;border:0.5px solid rgba(127,119,221,0.12);overflow:hidden;}
-.prog-fill{height:100%;border-radius:4px;transition:width .45s;}
+    .prog-wrap{margin-bottom:clamp(8px,1vw,12px);}
+    .prog-labels{display:flex;justify-content:space-between;font-size:var(--fss);color:var(--muted);margin-bottom:5px;}
+    .prog-labels b{font-weight:500;}
+    .prog-track{height:clamp(7px,.9vw,12px);background:var(--bg0);border-radius:4px;border:0.5px solid rgba(127,119,221,0.12);overflow:hidden;}
+    .prog-fill{height:100%;border-radius:4px;transition:width .45s;}
 
-.spread-pct{display:flex;align-items:center;gap:8px;font-size:var(--fss);margin-bottom:clamp(8px,1vw,12px);}
-.spread-pct .sp-label{color:var(--muted);}
-.spread-pct .sp-num{font-size:var(--fsl);font-weight:500;}
+    .spread-pct{display:flex;align-items:center;gap:8px;font-size:var(--fss);margin-bottom:clamp(8px,1vw,12px);}
+    .spread-pct .sp-label{color:var(--muted);}
+    .spread-pct .sp-num{font-size:var(--fsl);font-weight:500;}
 
-.formula{display:flex;align-items:center;gap:clamp(4px,.5vw,7px);flex-wrap:wrap;font-size:var(--fss);margin-bottom:clamp(8px,1vw,12px);}
-.fb{border-radius:4px;padding:2px clamp(5px,.7vw,9px);font-weight:500;font-size:var(--fss);}
-.fb-x{background:#261e52;color:#AFA9EC;border:0.5px solid #534AB7;}
-.fb-y{background:#0d2433;color:#85B7EB;border:0.5px solid #185FA5;}
-.fb-z{background:#1a2e1a;color:#97C459;border:0.5px solid #3B6D11;}
-.fb-cap{background:#261e52;color:#7F77DD;border:0.5px solid #534AB7;}
-.fb-cur{background:#0d2433;color:#5DCAA5;border:0.5px solid #0F6E56;}
-.fb-dim{color:#4a4570;}
+    .formula{display:flex;align-items:center;gap:clamp(4px,.5vw,7px);flex-wrap:wrap;font-size:var(--fss);margin-bottom:clamp(8px,1vw,12px);}
+    .fb{border-radius:4px;padding:2px clamp(5px,.7vw,9px);font-weight:500;font-size:var(--fss);}
+    .fb-x{background:#261e52;color:#AFA9EC;border:0.5px solid #534AB7;}
+    .fb-y{background:#0d2433;color:#85B7EB;border:0.5px solid #185FA5;}
+    .fb-z{background:#1a2e1a;color:#97C459;border:0.5px solid #3B6D11;}
+    .fb-cap{background:#261e52;color:#7F77DD;border:0.5px solid #534AB7;}
+    .fb-cur{background:#0d2433;color:#5DCAA5;border:0.5px solid #0F6E56;}
+    .fb-dim{color:#4a4570;}
 
-.contain-badge{display:inline-block;background:#08271e;color:#5DCAA5;border:0.5px solid #0F6E56;border-radius:4px;padding:clamp(3px,.4vw,6px) clamp(8px,1vw,14px);font-size:var(--fss);font-weight:500;}
-.spread-badge{display:inline-block;background:#1a0a0a;color:#F09595;border:0.5px solid #791F1F;border-radius:4px;padding:clamp(3px,.4vw,6px) clamp(8px,1vw,14px);font-size:var(--fss);font-weight:500;}
-.choose-btn{width:100%;padding:clamp(8px,1vw,13px);background:var(--accent);color:#fff;border:none;border-radius:clamp(6px,.8vw,10px);font-size:var(--fs);font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:2px;}
-.choose-btn:hover{opacity:.85;}
-.chosen-label{width:100%;padding:clamp(8px,1vw,13px);text-align:center;background:#1e1946;color:var(--accent);border:0.5px solid var(--accent);border-radius:clamp(6px,.8vw,10px);font-size:var(--fs);font-weight:500;margin-top:2px;}
-.locked-label{width:100%;padding:clamp(8px,1vw,13px);text-align:center;background:var(--bg1);color:#4a4570;border:0.5px solid rgba(127,119,221,0.1);border-radius:clamp(6px,.8vw,10px);font-size:var(--fss);margin-top:2px;}
+    .contain-badge{display:inline-block;background:#08271e;color:#5DCAA5;border:0.5px solid #0F6E56;border-radius:4px;padding:clamp(3px,.4vw,6px) clamp(8px,1vw,14px);font-size:var(--fss);font-weight:500;}
+    .spread-badge{display:inline-block;background:#1a0a0a;color:#F09595;border:0.5px solid #791F1F;border-radius:4px;padding:clamp(3px,.4vw,6px) clamp(8px,1vw,14px);font-size:var(--fss);font-weight:500;}
+    .choose-btn{width:100%;padding:clamp(8px,1vw,13px);background:var(--accent);color:#fff;border:none;border-radius:clamp(6px,.8vw,10px);font-size:var(--fs);font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:2px;}
+    .choose-btn:hover{opacity:.85;}
+    .chosen-label{width:100%;padding:clamp(8px,1vw,13px);text-align:center;background:#1e1946;color:var(--accent);border:0.5px solid var(--accent);border-radius:clamp(6px,.8vw,10px);font-size:var(--fs);font-weight:500;margin-top:2px;}
+    .locked-label{width:100%;padding:clamp(8px,1vw,13px);text-align:center;background:var(--bg1);color:#4a4570;border:0.5px solid rgba(127,119,221,0.1);border-radius:clamp(6px,.8vw,10px);font-size:var(--fss);margin-top:2px;}
 
-.log-toggle-btn{width:100%;padding:clamp(7px,.9vw,11px);background:var(--bg1);color:var(--txts);border:0.5px solid rgba(127,119,221,0.12);border-radius:clamp(6px,.8vw,10px);font-size:var(--fss);cursor:pointer;text-align:left;margin-bottom:4px;transition:background .15s;}
-.log-toggle-btn:hover{background:var(--bg2);}
-.log-body{background:var(--bg1);border:0.5px solid rgba(127,119,221,0.1);border-radius:clamp(6px,.8vw,10px);padding:clamp(8px,1vw,12px);font-size:var(--fss);color:var(--txts);margin-bottom:4px;line-height:1.7;display:none;}
-.log-body.open{display:block;}
-.log-entry{border-bottom:0.5px solid rgba(127,119,221,0.08);padding:2px 0;}
-.log-entry:last-child{border:none;}
-.log-rnum{color:var(--accent);font-weight:500;margin-right:6px;}
+    .log-toggle-btn{width:100%;padding:clamp(7px,.9vw,11px);background:var(--bg1);color:var(--txts);border:0.5px solid rgba(127,119,221,0.12);border-radius:clamp(6px,.8vw,10px);font-size:var(--fss);cursor:pointer;text-align:left;margin-bottom:4px;transition:background .15s;}
+    .log-toggle-btn:hover{background:var(--bg2);}
+    .log-body{background:var(--bg1);border:0.5px solid rgba(127,119,221,0.1);border-radius:clamp(6px,.8vw,10px);padding:clamp(8px,1vw,12px);font-size:var(--fss);color:var(--txts);margin-bottom:4px;line-height:1.7;display:none;}
+    .log-body.open{display:block;}
+    .log-entry{border-bottom:0.5px solid rgba(127,119,221,0.08);padding:2px 0;}
+    .log-entry:last-child{border:none;}
+    .log-rnum{color:var(--accent);font-weight:500;margin-right:6px;}
 
-.next-btn{width:100%;padding:clamp(10px,1.3vw,16px);background:var(--bg2);color:#CECBF6;border:0.5px solid rgba(127,119,221,0.35);border-radius:var(--brad);font-size:var(--fsl);font-weight:500;cursor:pointer;transition:background .15s,opacity .15s;margin-top:clamp(8px,1vw,14px);}
-.next-btn:hover:not(:disabled){background:var(--bg3);}
-.next-btn:disabled{opacity:.3;cursor:not-allowed;}
+    .next-btn{width:100%;padding:clamp(10px,1.3vw,16px);background:var(--bg2);color:#CECBF6;border:0.5px solid rgba(127,119,221,0.35);border-radius:var(--brad);font-size:var(--fsl);font-weight:500;cursor:pointer;transition:background .15s,opacity .15s;margin-top:clamp(8px,1vw,14px);}
+    .next-btn:hover:not(:disabled){background:var(--bg3);}
+    .next-btn:disabled{opacity:.3;cursor:not-allowed;}
 
-.result-wrap{text-align:center;padding:clamp(1rem,3vw,3rem) clamp(.5rem,2vw,2rem);}
-.res-icon{font-size:clamp(40px,6vw,64px);margin-bottom:clamp(.5rem,1.5vw,1.5rem);line-height:1;}
-.res-title{font-size:var(--fsh);font-weight:500;color:#CECBF6;margin-bottom:.4rem;}
-.res-sub{font-size:var(--fss);color:var(--muted);margin-bottom:clamp(.75rem,1.5vw,1.5rem);}
-.res-stats{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-bottom:clamp(1rem,2vw,2rem);}
-.res-stat{background:var(--bg2);border-radius:var(--brad);padding:clamp(.75rem,1.5vw,1.5rem);}
-.res-num{font-size:clamp(28px,4.5vw,46px);font-weight:500;}
-.res-lbl{font-size:var(--fss);color:var(--muted);margin-top:4px;}
-.res-log{text-align:left;margin-bottom:clamp(1rem,2vw,2rem);}
-.res-row{display:flex;justify-content:space-between;padding:clamp(4px,.6vw,8px) 0;border-bottom:0.5px solid rgba(127,119,221,0.1);font-size:var(--fs);color:var(--txts);}
-.res-row:last-child{border:none;}
-.res-row .rval{font-weight:500;}
-.restart-btn{padding:clamp(10px,1.3vw,16px) clamp(24px,4vw,48px);background:var(--accent);color:#fff;border:none;border-radius:var(--brad);font-size:var(--fsl);font-weight:500;cursor:pointer;transition:opacity .15s;}
-.restart-btn:hover{opacity:.85;}
-</style>
+    .result-wrap{text-align:center;padding:clamp(1rem,3vw,3rem) clamp(.5rem,2vw,2rem);}
+    .res-icon{font-size:clamp(40px,6vw,64px);margin-bottom:clamp(.5rem,1.5vw,1.5rem);line-height:1;}
+    .res-title{font-size:var(--fsh);font-weight:500;color:#CECBF6;margin-bottom:.4rem;}
+    .res-sub{font-size:var(--fss);color:var(--muted);margin-bottom:clamp(.75rem,1.5vw,1.5rem);}
+    .res-stats{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-bottom:clamp(1rem,2vw,2rem);}
+    .res-stat{background:var(--bg2);border-radius:var(--brad);padding:clamp(.75rem,1.5vw,1.5rem);}
+    .res-num{font-size:clamp(28px,4.5vw,46px);font-weight:500;}
+    .res-lbl{font-size:var(--fss);color:var(--muted);margin-top:4px;}
+    .res-log{text-align:left;margin-bottom:clamp(1rem,2vw,2rem);}
+    .res-row{display:flex;justify-content:space-between;padding:clamp(4px,.6vw,8px) 0;border-bottom:0.5px solid rgba(127,119,221,0.1);font-size:var(--fs);color:var(--txts);}
+    .res-row:last-child{border:none;}
+    .res-row .rval{font-weight:500;}
+    .restart-btn{padding:clamp(10px,1.3vw,16px) clamp(24px,4vw,48px);background:var(--accent);color:#fff;border:none;border-radius:var(--brad);font-size:var(--fsl);font-weight:500;cursor:pointer;transition:opacity .15s;}
+    .restart-btn:hover{opacity:.85;}
+    </style>
+</head>
+<body>
+  <div id="root">
 
-<div id="root">
-
-<div id="setup-screen" class="screen active">
-  <div class="topbar">
-    <i class="ti ti-virus" style="color:#AFA9EC;font-size:clamp(22px,3vw,32px)" aria-hidden="true"></i>
-    <div>
-      <div class="topbar-title">Vírus Terjedés — Irányítóközpont</div>
-      <div class="topbar-sub">Matematikafeladatok járványügyi szimulációban</div>
-    </div>
-  </div>
-  <div class="setup-section">
-    <div class="setup-label">Nehézségi fok</div>
-    <div class="diff-row">
-      <div class="pick-btn sel" data-diff="easy" onclick="pickDiff('easy')">
-        <div class="pbig"><i class="ti ti-shield-check" style="color:#5DCAA5" aria-hidden="true"></i></div>
-        <div class="pname">Enyhe</div>
-        <div class="pdesc">Lassú terjedés · +1 zóna / 3 kör</div>
-      </div>
-      <div class="pick-btn" data-diff="medium" onclick="pickDiff('medium')">
-        <div class="pbig"><i class="ti ti-alert-triangle" style="color:#85B7EB" aria-hidden="true"></i></div>
-        <div class="pname">Közepes</div>
-        <div class="pdesc">Gyorsuló járvány · +1 zóna / 2 kör</div>
-      </div>
-      <div class="pick-btn" data-diff="hard" onclick="pickDiff('hard')">
-        <div class="pbig"><i class="ti ti-biohazard" style="color:#F09595" aria-hidden="true"></i></div>
-        <div class="pname">Kritikus</div>
-        <div class="pdesc">Exponenciális · +1 zóna / kör</div>
+  <div id="setup-screen" class="screen active">
+    <div class="topbar">
+      <i class="ti ti-virus" style="color:#AFA9EC;font-size:clamp(22px,3vw,32px)" aria-hidden="true"></i>
+      <div>
+        <div class="topbar-title">Vírus Terjedés — Irányítóközpont</div>
+        <div class="topbar-sub">Matematikafeladatok járványügyi szimulációban</div>
       </div>
     </div>
-  </div>
-  <div class="setup-section">
-    <div class="setup-label">Körök száma</div>
-    <div style="background:var(--bg2);border:0.5px solid rgba(127,119,221,0.2);border-radius:var(--brad);padding:clamp(12px,1.5vw,20px) clamp(14px,1.8vw,24px);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(8px,1vw,14px);">
-        <span style="font-size:var(--fss);color:var(--txts);">Válassz 3 és 30 kör között:</span>
-        <span id="rounds-display" style="font-size:clamp(18px,2.5vw,28px);font-weight:500;color:#CECBF6;">5 kör</span>
+    <div class="setup-section">
+      <div class="setup-label">Nehézségi fok</div>
+      <div class="diff-row">
+        <div class="pick-btn sel" data-diff="easy" onclick="pickDiff('easy')">
+          <div class="pbig"><i class="ti ti-shield-check" style="color:#5DCAA5" aria-hidden="true"></i></div>
+          <div class="pname">Enyhe</div>
+          <div class="pdesc">Lassú terjedés · +1 zóna / 3 kör</div>
+        </div>
+        <div class="pick-btn" data-diff="medium" onclick="pickDiff('medium')">
+          <div class="pbig"><i class="ti ti-alert-triangle" style="color:#85B7EB" aria-hidden="true"></i></div>
+          <div class="pname">Közepes</div>
+          <div class="pdesc">Gyorsuló járvány · +1 zóna / 2 kör</div>
+        </div>
+        <div class="pick-btn" data-diff="hard" onclick="pickDiff('hard')">
+          <div class="pbig"><i class="ti ti-biohazard" style="color:#F09595" aria-hidden="true"></i></div>
+          <div class="pname">Kritikus</div>
+          <div class="pdesc">Exponenciális · +1 zóna / kör</div>
+        </div>
       </div>
-      <input type="range" id="rounds-slider" min="3" max="30" value="5"
-        oninput="pickRounds(+this.value)"
-        style="width:100%;accent-color:var(--accent);cursor:pointer;height:clamp(4px,.5vw,6px);">
-      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:clamp(9px,.9vw,12px);color:var(--muted);">
-        <span>3</span><span>10</span><span>20</span><span>30</span>
+    </div>
+    <div class="setup-section">
+      <div class="setup-label">Körök száma</div>
+      <div style="background:var(--bg2);border:0.5px solid rgba(127,119,221,0.2);border-radius:var(--brad);padding:clamp(12px,1.5vw,20px) clamp(14px,1.8vw,24px);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(8px,1vw,14px);">
+          <span style="font-size:var(--fss);color:var(--txts);">Válassz 3 és 30 kör között:</span>
+          <span id="rounds-display" style="font-size:clamp(18px,2.5vw,28px);font-weight:500;color:#CECBF6;">5 kör</span>
+        </div>
+        <input type="range" id="rounds-slider" min="3" max="30" value="5"
+          oninput="pickRounds(+this.value)"
+          style="width:100%;accent-color:var(--accent);cursor:pointer;height:clamp(4px,.5vw,6px);">
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:clamp(9px,.9vw,12px);color:var(--muted);">
+          <span>3</span><span>10</span><span>20</span><span>30</span>
+        </div>
+      </div>
+    </div>
+    <button class="start-btn" onclick="startGame()"><i class="ti ti-player-play" aria-hidden="true"></i> Szimuláció indítása</button>
+    <div style="margin-top:clamp(10px,1.5vw,18px);background:var(--bg1);border:0.5px solid rgba(127,119,221,0.18);border-radius:var(--brad);padding:clamp(10px,1.3vw,16px) clamp(12px,1.5vw,20px);display:flex;align-items:flex-start;gap:10px;">
+      <i class="ti ti-info-circle" style="color:#AFA9EC;font-size:clamp(16px,2vw,22px);flex-shrink:0;margin-top:1px" aria-hidden="true"></i>
+      <div style="font-size:var(--fss);color:var(--txts);line-height:1.7;">
+        <span style="color:#CECBF6;font-weight:500;">Hogyan értékeld a teljesítményed?</span><br>
+        A szimuláció végén megjelenik az összesített <span style="color:#AFA9EC;font-weight:500;">terjedési pont</span> és az <span style="color:#F09595;font-weight:500;">elfertőződött zónák</span> száma.
+        Minél <span style="color:#5DCAA5;font-weight:500;">kevesebb fertőzési pontod</span> vagy <span style="color:#5DCAA5;font-weight:500;">elfertőződött zónád</span> van a végén, annál jobban teljesítettél —
+        ez azt jelenti, hogy időben megfékezted a legveszélyesebb gócpontokat, és megakadályoztál több eset elszabadulását.
       </div>
     </div>
   </div>
-  <button class="start-btn" onclick="startGame()"><i class="ti ti-player-play" aria-hidden="true"></i> Szimuláció indítása</button>
-  <div style="margin-top:clamp(10px,1.5vw,18px);background:var(--bg1);border:0.5px solid rgba(127,119,221,0.18);border-radius:var(--brad);padding:clamp(10px,1.3vw,16px) clamp(12px,1.5vw,20px);display:flex;align-items:flex-start;gap:10px;">
-    <i class="ti ti-info-circle" style="color:#AFA9EC;font-size:clamp(16px,2vw,22px);flex-shrink:0;margin-top:1px" aria-hidden="true"></i>
-    <div style="font-size:var(--fss);color:var(--txts);line-height:1.7;">
-      <span style="color:#CECBF6;font-weight:500;">Hogyan értékeld a teljesítményed?</span><br>
-      A szimuláció végén megjelenik az összesített <span style="color:#AFA9EC;font-weight:500;">terjedési pont</span> és az <span style="color:#F09595;font-weight:500;">elfertőződött zónák</span> száma.
-      Minél <span style="color:#5DCAA5;font-weight:500;">kevesebb fertőzési pontod</span> vagy <span style="color:#5DCAA5;font-weight:500;">elfertőződött zónád</span> van a végén, annál jobban teljesítettél —
-      ez azt jelenti, hogy időben megfékezted a legveszélyesebb gócpontokat, és megakadályoztál több eset elszabadulását.
+
+  <div id="game-screen" class="screen">
+    <div class="topbar">
+      <i class="ti ti-virus" style="color:#AFA9EC;font-size:clamp(20px,2.5vw,28px)" aria-hidden="true"></i>
+      <div>
+        <div class="topbar-title">Vírus Terjedés — Irányítóközpont</div>
+        <div class="topbar-sub" id="diff-badge"></div>
+      </div>
+    </div>
+    <div class="hud">
+      <div class="hud-card"><div class="hud-label">Kör</div><div class="hud-val blue" id="hud-round">1</div></div>
+      <div class="hud-card"><div class="hud-label">Aktív zónák</div><div class="hud-val red" id="hud-active">2</div></div>
+      <div class="hud-card"><div class="hud-label">Elfertőződött</div><div class="hud-val pur" id="hud-spread">0</div></div>
+      <div class="hud-card"><div class="hud-label">Megfékezve</div><div class="hud-val teal" id="hud-cont">0</div></div>
+      <div class="hud-card"><div class="hud-label">Terjedési pont</div><div class="hud-val green" id="hud-score">0</div></div>
+    </div>
+    <div class="hint-bar" id="hint-bar">Válaszd ki, melyik zónát fékezed meg — körönként csak <b>egyet</b> választhatsz!</div>
+    <div id="zones-grid" class="zones-grid"></div>
+    <div id="log-acc" style="margin-bottom:clamp(8px,1vw,14px)"></div>
+    <button class="next-btn" id="next-btn" onclick="nextRound()" disabled>Következő kör <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+
+  <div id="result-screen" class="screen">
+    <div class="result-wrap">
+      <div class="res-icon"><i class="ti ti-microscope" style="color:#AFA9EC" aria-hidden="true"></i></div>
+      <div class="res-title">Szimuláció vége</div>
+      <div class="res-sub" id="res-sub"></div>
+      <div class="res-stats">
+        <div class="res-stat"><div class="res-num" style="color:#F09595" id="res-spread"></div><div class="res-lbl">összes terjedési pont (y)</div></div>
+        <div class="res-stat"><div class="res-num" style="color:#5DCAA5" id="res-cont"></div><div class="res-lbl">teljesen elfertőződött zóna</div></div>
+      </div>
+      <div class="res-log" id="res-log"></div>
+      <button class="restart-btn" onclick="restart()"><i class="ti ti-refresh" aria-hidden="true"></i> Új szimuláció</button>
     </div>
   </div>
-</div>
 
-<div id="game-screen" class="screen">
-  <div class="topbar">
-    <i class="ti ti-virus" style="color:#AFA9EC;font-size:clamp(20px,2.5vw,28px)" aria-hidden="true"></i>
-    <div>
-      <div class="topbar-title">Vírus Terjedés — Irányítóközpont</div>
-      <div class="topbar-sub" id="diff-badge"></div>
-    </div>
   </div>
-  <div class="hud">
-    <div class="hud-card"><div class="hud-label">Kör</div><div class="hud-val blue" id="hud-round">1</div></div>
-    <div class="hud-card"><div class="hud-label">Aktív zónák</div><div class="hud-val red" id="hud-active">2</div></div>
-    <div class="hud-card"><div class="hud-label">Elfertőződött</div><div class="hud-val pur" id="hud-spread">0</div></div>
-    <div class="hud-card"><div class="hud-label">Megfékezve</div><div class="hud-val teal" id="hud-cont">0</div></div>
-    <div class="hud-card"><div class="hud-label">Terjedési pont</div><div class="hud-val green" id="hud-score">0</div></div>
-  </div>
-  <div class="hint-bar" id="hint-bar">Válaszd ki, melyik zónát fékezed meg — körönként csak <b>egyet</b> választhatsz!</div>
-  <div id="zones-grid" class="zones-grid"></div>
-  <div id="log-acc" style="margin-bottom:clamp(8px,1vw,14px)"></div>
-  <button class="next-btn" id="next-btn" onclick="nextRound()" disabled>Következő kör <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
-</div>
 
-<div id="result-screen" class="screen">
-  <div class="result-wrap">
-    <div class="res-icon"><i class="ti ti-microscope" style="color:#AFA9EC" aria-hidden="true"></i></div>
-    <div class="res-title">Szimuláció vége</div>
-    <div class="res-sub" id="res-sub"></div>
-    <div class="res-stats">
-      <div class="res-stat"><div class="res-num" style="color:#F09595" id="res-spread"></div><div class="res-lbl">összes terjedési pont (y)</div></div>
-      <div class="res-stat"><div class="res-num" style="color:#5DCAA5" id="res-cont"></div><div class="res-lbl">teljesen elfertőződött zóna</div></div>
-    </div>
-    <div class="res-log" id="res-log"></div>
-    <button class="restart-btn" onclick="restart()"><i class="ti ti-refresh" aria-hidden="true"></i> Új szimuláció</button>
-  </div>
-</div>
+  <script>
+  const DIFF={
+    easy:  {xMin:2, xMax:8,  yMin:1,yMax:5,  capMin:12,capMax:35,lbl:'Enyhe'},
+    medium:{xMin:4, xMax:18, yMin:2,yMax:10, capMin:20,capMax:60,lbl:'Közepes'},
+    hard:  {xMin:8, xMax:40, yMin:4,yMax:18, capMin:35,capMax:90,lbl:'Kritikus'}
+  };
 
-</div>
+  const TYPES=[
+    {name:'Légúti vírus',icon:'<i class="ti ti-lungs" aria-hidden="true"></i>',pathogen:'Koronavírus-variáns',area:'légúti hám',unit:'eset',
+    tpl:(x,y,p,c,z,zp)=>`Az aktív esetek száma <b>${x}</b>. A légúti átvitel mértéke <b>y=${y} eset/kör</b>. Következő körben <b>${zp}% eséllyel ${z}×-osára</b> gyorsul az átvitel (z×y). Ha nem gyorsul: <b>${x}+${y}=${x+y}</b>, ha igen: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Kapacitáshatár: <b>${c} eset</b>.`},
+    {name:'Baktérium-kolónia',icon:'<i class="ti ti-dna" aria-hidden="true"></i>',pathogen:'Rezisztens baktérium',area:'szövetkolónia',unit:'CFU',
+    tpl:(x,y,p,c,z,zp)=>`Kolónia mérete <b>${x} CFU</b>. Osztódási ráta <b>y=${y} CFU/kör</b>. <b>${zp}% eséllyel z=${z}×-os mutáció</b> lép fel. Nem mutál: <b>${x}+${y}=${x+y}</b>, mutál: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Max kolónia: <b>${c} CFU</b>.`},
+    {name:'Kórokozó gombák',icon:'<i class="ti ti-plant" aria-hidden="true"></i>',pathogen:'Candida-törzs',area:'nyálkahártya',unit:'telep',
+    tpl:(x,y,p,c,z,zp)=>`Aktív telepek száma <b>${x}</b>. Sporaterjedés <b>y=${y} telep/kör</b>. <b>${zp}% eséllyel ${z}×-os</b> spórakitörés. Ha nem: <b>${x}+${y}=${x+y}</b>, ha igen: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Befertőzhető kapacitás: <b>${c} telep</b>.`},
+    {name:'Prion-fertőzés',icon:'<i class="ti ti-brain" aria-hidden="true"></i>',pathogen:'Prion-fehérje',area:'idegszövet',unit:'reg.',
+    tpl:(x,y,p,c,z,zp)=>`Érintett régiók: <b>${x}</b>. Áthajtási ráta <b>y=${y} reg./kör</b>. <b>${zp}% eséllyel ${z}×-os</b> láncolatot indít. Normál: <b>${x}+${y}=${x+y}</b>, kaszkád: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Kritikus küszöb: <b>${c} reg.</b>`},
+    {name:'Vírusjárvány',icon:'<i class="ti ti-flask" aria-hidden="true"></i>',pathogen:'Influenza-rekombináns',area:'sejtpopuláció',unit:'sejt',
+    tpl:(x,y,p,c,z,zp)=>`Fertőzött sejtek: <b>${x}</b>. Replikációs ráta <b>y=${y} sejt/kör</b>. <b>${zp}% eséllyel ${z}×-os</b> replikációs bumm. Ha nem: <b>${x}+${y}=${x+y}</b>, ha igen: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Kapacitás: <b>${c} sejt</b>.`}
+  ];
 
-<script>
-const DIFF={
-  easy:  {xMin:2, xMax:8,  yMin:1,yMax:5,  capMin:12,capMax:35,lbl:'Enyhe'},
-  medium:{xMin:4, xMax:18, yMin:2,yMax:10, capMin:20,capMax:60,lbl:'Közepes'},
-  hard:  {xMin:8, xMax:40, yMin:4,yMax:18, capMin:35,capMax:90,lbl:'Kritikus'}
-};
+  function zoneCount(diff,roundNum){
+    if(diff==='easy')   return 2+Math.floor((roundNum-1)/3);
+    if(diff==='medium') return 2+Math.floor((roundNum-1)/2);
+    return 1+roundNum;
+  }
 
-const TYPES=[
-  {name:'Légúti vírus',icon:'<i class="ti ti-lungs" aria-hidden="true"></i>',pathogen:'Koronavírus-variáns',area:'légúti hám',unit:'eset',
-   tpl:(x,y,p,c,z,zp)=>`Az aktív esetek száma <b>${x}</b>. A légúti átvitel mértéke <b>y=${y} eset/kör</b>. Következő körben <b>${zp}% eséllyel ${z}×-osára</b> gyorsul az átvitel (z×y). Ha nem gyorsul: <b>${x}+${y}=${x+y}</b>, ha igen: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Kapacitáshatár: <b>${c} eset</b>.`},
-  {name:'Baktérium-kolónia',icon:'<i class="ti ti-dna" aria-hidden="true"></i>',pathogen:'Rezisztens baktérium',area:'szövetkolónia',unit:'CFU',
-   tpl:(x,y,p,c,z,zp)=>`Kolónia mérete <b>${x} CFU</b>. Osztódási ráta <b>y=${y} CFU/kör</b>. <b>${zp}% eséllyel z=${z}×-os mutáció</b> lép fel. Nem mutál: <b>${x}+${y}=${x+y}</b>, mutál: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Max kolónia: <b>${c} CFU</b>.`},
-  {name:'Kórokozó gombák',icon:'<i class="ti ti-plant" aria-hidden="true"></i>',pathogen:'Candida-törzs',area:'nyálkahártya',unit:'telep',
-   tpl:(x,y,p,c,z,zp)=>`Aktív telepek száma <b>${x}</b>. Sporaterjedés <b>y=${y} telep/kör</b>. <b>${zp}% eséllyel ${z}×-os</b> spórakitörés. Ha nem: <b>${x}+${y}=${x+y}</b>, ha igen: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Befertőzhető kapacitás: <b>${c} telep</b>.`},
-  {name:'Prion-fertőzés',icon:'<i class="ti ti-brain" aria-hidden="true"></i>',pathogen:'Prion-fehérje',area:'idegszövet',unit:'reg.',
-   tpl:(x,y,p,c,z,zp)=>`Érintett régiók: <b>${x}</b>. Áthajtási ráta <b>y=${y} reg./kör</b>. <b>${zp}% eséllyel ${z}×-os</b> láncolatot indít. Normál: <b>${x}+${y}=${x+y}</b>, kaszkád: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Kritikus küszöb: <b>${c} reg.</b>`},
-  {name:'Vírusjárvány',icon:'<i class="ti ti-flask" aria-hidden="true"></i>',pathogen:'Influenza-rekombináns',area:'sejtpopuláció',unit:'sejt',
-   tpl:(x,y,p,c,z,zp)=>`Fertőzött sejtek: <b>${x}</b>. Replikációs ráta <b>y=${y} sejt/kör</b>. <b>${zp}% eséllyel ${z}×-os</b> replikációs bumm. Ha nem: <b>${x}+${y}=${x+y}</b>, ha igen: <b>${x}+${z}×${y}=${x+Math.round(z*y)}</b>. Kapacitás: <b>${c} sejt</b>.`}
-];
+  let G={diff:'easy',rounds:5,cur:0,zones:[],zid:0,chosen:null,score:0,contCount:0,spreadCount:0,log:[],roundScores:[]};
 
-function zoneCount(diff,roundNum){
-  if(diff==='easy')   return 2+Math.floor((roundNum-1)/3);
-  if(diff==='medium') return 2+Math.floor((roundNum-1)/2);
-  return 1+roundNum;
-}
+  function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+  function rz(){return Math.round((1.1+Math.random()*0.9)*10)/10;}
+  function rzp(){return ri(1,80);}
 
-let G={diff:'easy',rounds:5,cur:0,zones:[],zid:0,chosen:null,score:0,contCount:0,spreadCount:0,log:[],roundScores:[]};
+  function mkZone(){
+    const d=DIFF[G.diff];
+    const x=ri(d.xMin,d.xMax),y=ri(d.yMin,d.yMax);
+    const minCap=Math.max(Math.ceil((x+y)*1.3),d.capMin);
+    const cap=Math.max(ri(d.capMin,d.capMax),minCap);
+    const t=TYPES[ri(0,TYPES.length-1)];
+    const z=rz(),zp=rzp();
+    return{id:++G.zid,t,x,y,cap,pos:x,ext:false,fullySpread:false,isNew:true,z,zp};
+  }
 
-function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-function rz(){return Math.round((1.1+Math.random()*0.9)*10)/10;}
-function rzp(){return ri(1,80);}
+  function pickDiff(d){G.diff=d;document.querySelectorAll('[data-diff]').forEach(e=>e.classList.toggle('sel',e.dataset.diff===d));}
+  function pickRounds(r){G.rounds=r;const d=document.getElementById('rounds-display');if(d)d.textContent=r+' kör';}
+  function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-function mkZone(){
-  const d=DIFF[G.diff];
-  const x=ri(d.xMin,d.xMax),y=ri(d.yMin,d.yMax);
-  const minCap=Math.max(Math.ceil((x+y)*1.3),d.capMin);
-  const cap=Math.max(ri(d.capMin,d.capMax),minCap);
-  const t=TYPES[ri(0,TYPES.length-1)];
-  const z=rz(),zp=rzp();
-  return{id:++G.zid,t,x,y,cap,pos:x,ext:false,fullySpread:false,isNew:true,z,zp};
-}
+  function startGame(){
+    G={...G,cur:1,zones:[],zid:0,chosen:null,score:0,contCount:0,spreadCount:0,log:[],roundScores:[]};
+    const n=zoneCount(G.diff,1);
+    for(let i=0;i<n;i++) G.zones.push(mkZone());
+    document.getElementById('diff-badge').textContent=DIFF[G.diff].lbl+' szint — Körök: '+G.rounds;
+    showScreen('game-screen');
+    render();
+  }
 
-function pickDiff(d){G.diff=d;document.querySelectorAll('[data-diff]').forEach(e=>e.classList.toggle('sel',e.dataset.diff===d));}
-function pickRounds(r){G.rounds=r;const d=document.getElementById('rounds-display');if(d)d.textContent=r+' kör';}
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+  function pct(z){return Math.min(100,Math.round(z.pos/z.cap*100));}
 
-function startGame(){
-  G={...G,cur:1,zones:[],zid:0,chosen:null,score:0,contCount:0,spreadCount:0,log:[],roundScores:[]};
-  const n=zoneCount(G.diff,1);
-  for(let i=0;i<n;i++) G.zones.push(mkZone());
-  document.getElementById('diff-badge').textContent=DIFF[G.diff].lbl+' szint — Körök: '+G.rounds;
-  showScreen('game-screen');
-  render();
-}
+  function barColor(p){
+    if(p<35) return '#1D9E75';
+    if(p<65) return '#378ADD';
+    if(p<85) return '#7F77DD';
+    return '#F09595';
+  }
 
-function pct(z){return Math.min(100,Math.round(z.pos/z.cap*100));}
+  function render(){
+    document.getElementById('hud-round').textContent=G.cur+' / '+G.rounds;
+    document.getElementById('hud-active').textContent=G.zones.filter(z=>!z.ext&&!z.fullySpread).length;
+    document.getElementById('hud-spread').textContent=G.spreadCount;
+    document.getElementById('hud-cont').textContent=G.contCount;
+    document.getElementById('hud-score').textContent=G.score;
 
-function barColor(p){
-  if(p<35) return '#1D9E75';
-  if(p<65) return '#378ADD';
-  if(p<85) return '#7F77DD';
-  return '#F09595';
-}
+    const hasChosen=G.chosen!==null;
+    const hint=document.getElementById('hint-bar');
+    if(hasChosen){
+      const ch=G.zones.find(z=>z.id===G.chosen);
+      hint.innerHTML=`<i class="ti ti-shield" style="color:#5DCAA5" aria-hidden="true"></i> <b>${ch?ch.t.name+' #'+ch.id:''}</b> megfékezés folyamatban — más zóna nem választható ebben a körben.`;
+    } else {
+      hint.innerHTML=`Válaszd ki, melyik zónát fékezed meg — körönként csak <b>egyet</b> választhatsz!`;
+    }
 
-function render(){
-  document.getElementById('hud-round').textContent=G.cur+' / '+G.rounds;
-  document.getElementById('hud-active').textContent=G.zones.filter(z=>!z.ext&&!z.fullySpread).length;
-  document.getElementById('hud-spread').textContent=G.spreadCount;
-  document.getElementById('hud-cont').textContent=G.contCount;
-  document.getElementById('hud-score').textContent=G.score;
+    const grid=document.getElementById('zones-grid');
+    grid.innerHTML='';
+    G.zones.forEach(z=>{
+      const p=pct(z);
+      const isChosen=z.id===G.chosen;
+      const isLocked=hasChosen&&!isChosen&&!z.ext&&!z.fullySpread;
+      const div=document.createElement('div');
+      div.className='zone-card'+(z.ext?' contained':z.fullySpread?' contained':isChosen?' chosen':isLocked?' locked':'');
 
-  const hasChosen=G.chosen!==null;
-  const hint=document.getElementById('hint-bar');
-  if(hasChosen){
+      let actionHtml='';
+      if(z.ext){
+        actionHtml=`<div class="contain-badge"><i class="ti ti-shield-check" style="font-size:14px" aria-hidden="true"></i> Megfékezve</div>`;
+      } else if(z.fullySpread){
+        actionHtml=`<div class="spread-badge"><i class="ti ti-virus" style="font-size:14px" aria-hidden="true"></i> Teljesen elterjedt</div>`;
+      } else if(isChosen){
+        actionHtml=`<div class="chosen-label"><i class="ti ti-shield" style="font-size:14px" aria-hidden="true"></i> Ez lesz megfékezve ✓</div>`;
+      } else if(isLocked){
+        actionHtml=`<div class="locked-label">Ebben a körben nem fékezhető meg</div>`;
+      } else {
+        actionHtml=`<button class="choose-btn" onclick="chooseThis(${z.id})"><i class="ti ti-shield" style="font-size:14px" aria-hidden="true"></i> Ezt fékezem meg</button>`;
+      }
+
+      const spreadColor=z.fullySpread?'#F09595':z.ext?'#5DCAA5':pct(z)<50?'#5DCAA5':'#AFA9EC';
+
+      div.innerHTML=`
+        ${z.isNew?'<div class="new-badge"><i class="ti ti-virus" style="font-size:13px" aria-hidden="true"></i> Új fertőzési zóna</div>':''}
+        <div class="zh">
+          <div class="zicon">${z.t.icon}</div>
+          <div>
+            <div class="zname">${z.t.name} #${z.id}</div>
+            <div class="zsub">${z.t.pathogen} · ${z.t.area}</div>
+          </div>
+        </div>
+        <div class="task-box">${z.t.tpl(z.x,z.y,z.pos,z.cap,z.z,z.zp)}</div>
+        <div class="spread-pct">
+          <span class="sp-label">Terjedés mértéke:</span>
+          <span class="sp-num" style="color:${spreadColor}">${p}%</span>
+          <span class="sp-label" style="font-size:clamp(10px,1vw,12px)">(x=${z.pos} / cap=${z.cap})</span>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-labels">
+            <span>Jelenlegi fertőzöttek: <b style="color:#AFA9EC">${z.pos} ${z.t.unit}</b></span>
+            <span>Max kapacitás: <b style="color:#5DCAA5">${z.cap} ${z.t.unit}</b></span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:${p}%;background:${barColor(p)}"></div></div>
+        </div>
+        <div class="formula">
+          <span class="fb-dim">Képlet:</span>
+          <span class="fb fb-x">x=${z.pos}</span>
+          <span class="fb-dim">+</span>
+          <span class="fb fb-z">z=${z.z}</span>
+          <span class="fb-dim">×</span>
+          <span class="fb fb-y">y=${z.y}</span>
+          <span class="fb-dim">≤</span>
+          <span class="fb fb-cap">Cap=${z.cap}</span>
+          <span class="fb-dim">=</span>
+          <span class="fb fb-cur">${z.pos} ${z.t.unit}</span>
+        </div>
+        ${actionHtml}`;
+      grid.appendChild(div);
+    });
+
+    renderLog();
+
+    const nb=document.getElementById('next-btn');
+    const isLast=G.cur>=G.rounds;
+    nb.disabled=!hasChosen;
+    nb.innerHTML=isLast?'Szimuláció eredménye <i class="ti ti-trophy" aria-hidden="true"></i>':'Következő kör <i class="ti ti-arrow-right" aria-hidden="true"></i>';
+    nb.onclick=isLast?showResult:nextRound;
+  }
+
+  function chooseThis(id){if(G.chosen!==null)return;G.chosen=id;render();}
+
+  function addLog(r,msg){G.log.push({r,msg});}
+
+  function renderLog(){
+    const acc=document.getElementById('log-acc');
+    acc.innerHTML='';
+    if(!G.log.length) return;
+    const grouped={};
+    G.log.forEach(e=>{if(!grouped[e.r])grouped[e.r]=[];grouped[e.r].push(e.msg);});
+    Object.entries(grouped).reverse().forEach(([r,msgs])=>{
+      const rs=G.roundScores[r]||0;
+      const wrap=document.createElement('div');
+      const btn=document.createElement('button');
+      btn.className='log-toggle-btn';
+      btn.innerHTML=`<i class="ti ti-chevron-down" style="font-size:13px;margin-right:6px" aria-hidden="true"></i>Kör ${r} — ${msgs.length} esemény &nbsp;·&nbsp; <b style="color:#AFA9EC">+${rs} terjedési pont</b>`;
+      const body=document.createElement('div');
+      body.className='log-body';
+      body.innerHTML=msgs.map(m=>`<div class="log-entry">${m}</div>`).join('');
+      btn.onclick=()=>body.classList.toggle('open');
+      wrap.appendChild(btn);wrap.appendChild(body);
+      acc.appendChild(wrap);
+    });
+  }
+
+  function nextRound(){
+    if(G.chosen===null)return;
     const ch=G.zones.find(z=>z.id===G.chosen);
-    hint.innerHTML=`<i class="ti ti-shield" style="color:#5DCAA5" aria-hidden="true"></i> <b>${ch?ch.t.name+' #'+ch.id:''}</b> megfékezés folyamatban — más zóna nem választható ebben a körben.`;
-  } else {
-    hint.innerHTML=`Válaszd ki, melyik zónát fékezed meg — körönként csak <b>egyet</b> választhatsz!`;
-  }
-
-  const grid=document.getElementById('zones-grid');
-  grid.innerHTML='';
-  G.zones.forEach(z=>{
-    const p=pct(z);
-    const isChosen=z.id===G.chosen;
-    const isLocked=hasChosen&&!isChosen&&!z.ext&&!z.fullySpread;
-    const div=document.createElement('div');
-    div.className='zone-card'+(z.ext?' contained':z.fullySpread?' contained':isChosen?' chosen':isLocked?' locked':'');
-
-    let actionHtml='';
-    if(z.ext){
-      actionHtml=`<div class="contain-badge"><i class="ti ti-shield-check" style="font-size:14px" aria-hidden="true"></i> Megfékezve</div>`;
-    } else if(z.fullySpread){
-      actionHtml=`<div class="spread-badge"><i class="ti ti-virus" style="font-size:14px" aria-hidden="true"></i> Teljesen elterjedt</div>`;
-    } else if(isChosen){
-      actionHtml=`<div class="chosen-label"><i class="ti ti-shield" style="font-size:14px" aria-hidden="true"></i> Ez lesz megfékezve ✓</div>`;
-    } else if(isLocked){
-      actionHtml=`<div class="locked-label">Ebben a körben nem fékezhető meg</div>`;
-    } else {
-      actionHtml=`<button class="choose-btn" onclick="chooseThis(${z.id})"><i class="ti ti-shield" style="font-size:14px" aria-hidden="true"></i> Ezt fékezem meg</button>`;
+    if(ch&&!ch.ext&&!ch.fullySpread){
+      ch.ext=true;G.contCount++;
+      addLog(G.cur,`<i class="ti ti-shield-check" style="color:#5DCAA5;font-size:13px" aria-hidden="true"></i> ${ch.t.name} #${ch.id} megfékezve (${ch.pos} ${ch.t.unit} fertőzött maradt)`);
     }
 
-    const spreadColor=z.fullySpread?'#F09595':z.ext?'#5DCAA5':pct(z)<50?'#5DCAA5':'#AFA9EC';
+    let roundY=0;
+    G.zones.forEach(z=>{
+      if(z.ext||z.fullySpread)return;
+      const useZ=Math.random()*100 < z.zp;
+      const addedY=useZ?Math.round(z.z*z.y):z.y;
+      roundY+=addedY;
+      const prev=z.pos;
+      z.pos=Math.min(z.cap,z.x+addedY);
+      z.x=z.pos;
+      z.isNew=false;
+      z.z=rz();z.zp=rzp();
+      if(z.pos>=z.cap){
+        addLog(G.cur,`<i class="ti ti-virus" style="color:#F09595;font-size:13px" aria-hidden="true"></i> ${z.t.name} #${z.id}: teljesen elterjedt! (${z.cap} ${z.t.unit}) — +${addedY} pont`);
+        z.fullySpread=true;G.spreadCount++;
+      } else {
+        addLog(G.cur,`${z.t.icon} ${z.t.name} #${z.id}: ${prev}→${z.pos} ${z.t.unit} (+${addedY}${useZ?' z×y':''})`);
+      }
+    });
+    G.score+=roundY;
+    G.roundScores[G.cur]=roundY;
 
-    div.innerHTML=`
-      ${z.isNew?'<div class="new-badge"><i class="ti ti-virus" style="font-size:13px" aria-hidden="true"></i> Új fertőzési zóna</div>':''}
-      <div class="zh">
-        <div class="zicon">${z.t.icon}</div>
-        <div>
-          <div class="zname">${z.t.name} #${z.id}</div>
-          <div class="zsub">${z.t.pathogen} · ${z.t.area}</div>
-        </div>
-      </div>
-      <div class="task-box">${z.t.tpl(z.x,z.y,z.pos,z.cap,z.z,z.zp)}</div>
-      <div class="spread-pct">
-        <span class="sp-label">Terjedés mértéke:</span>
-        <span class="sp-num" style="color:${spreadColor}">${p}%</span>
-        <span class="sp-label" style="font-size:clamp(10px,1vw,12px)">(x=${z.pos} / cap=${z.cap})</span>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-labels">
-          <span>Jelenlegi fertőzöttek: <b style="color:#AFA9EC">${z.pos} ${z.t.unit}</b></span>
-          <span>Max kapacitás: <b style="color:#5DCAA5">${z.cap} ${z.t.unit}</b></span>
-        </div>
-        <div class="prog-track"><div class="prog-fill" style="width:${p}%;background:${barColor(p)}"></div></div>
-      </div>
-      <div class="formula">
-        <span class="fb-dim">Képlet:</span>
-        <span class="fb fb-x">x=${z.pos}</span>
-        <span class="fb-dim">+</span>
-        <span class="fb fb-z">z=${z.z}</span>
-        <span class="fb-dim">×</span>
-        <span class="fb fb-y">y=${z.y}</span>
-        <span class="fb-dim">≤</span>
-        <span class="fb fb-cap">Cap=${z.cap}</span>
-        <span class="fb-dim">=</span>
-        <span class="fb fb-cur">${z.pos} ${z.t.unit}</span>
-      </div>
-      ${actionHtml}`;
-    grid.appendChild(div);
-  });
-
-  renderLog();
-
-  const nb=document.getElementById('next-btn');
-  const isLast=G.cur>=G.rounds;
-  nb.disabled=!hasChosen;
-  nb.innerHTML=isLast?'Szimuláció eredménye <i class="ti ti-trophy" aria-hidden="true"></i>':'Következő kör <i class="ti ti-arrow-right" aria-hidden="true"></i>';
-  nb.onclick=isLast?showResult:nextRound;
-}
-
-function chooseThis(id){if(G.chosen!==null)return;G.chosen=id;render();}
-
-function addLog(r,msg){G.log.push({r,msg});}
-
-function renderLog(){
-  const acc=document.getElementById('log-acc');
-  acc.innerHTML='';
-  if(!G.log.length) return;
-  const grouped={};
-  G.log.forEach(e=>{if(!grouped[e.r])grouped[e.r]=[];grouped[e.r].push(e.msg);});
-  Object.entries(grouped).reverse().forEach(([r,msgs])=>{
-    const rs=G.roundScores[r]||0;
-    const wrap=document.createElement('div');
-    const btn=document.createElement('button');
-    btn.className='log-toggle-btn';
-    btn.innerHTML=`<i class="ti ti-chevron-down" style="font-size:13px;margin-right:6px" aria-hidden="true"></i>Kör ${r} — ${msgs.length} esemény &nbsp;·&nbsp; <b style="color:#AFA9EC">+${rs} terjedési pont</b>`;
-    const body=document.createElement('div');
-    body.className='log-body';
-    body.innerHTML=msgs.map(m=>`<div class="log-entry">${m}</div>`).join('');
-    btn.onclick=()=>body.classList.toggle('open');
-    wrap.appendChild(btn);wrap.appendChild(body);
-    acc.appendChild(wrap);
-  });
-}
-
-function nextRound(){
-  if(G.chosen===null)return;
-  const ch=G.zones.find(z=>z.id===G.chosen);
-  if(ch&&!ch.ext&&!ch.fullySpread){
-    ch.ext=true;G.contCount++;
-    addLog(G.cur,`<i class="ti ti-shield-check" style="color:#5DCAA5;font-size:13px" aria-hidden="true"></i> ${ch.t.name} #${ch.id} megfékezve (${ch.pos} ${ch.t.unit} fertőzött maradt)`);
-  }
-
-  let roundY=0;
-  G.zones.forEach(z=>{
-    if(z.ext||z.fullySpread)return;
-    const useZ=Math.random()*100 < z.zp;
-    const addedY=useZ?Math.round(z.z*z.y):z.y;
-    roundY+=addedY;
-    const prev=z.pos;
-    z.pos=Math.min(z.cap,z.x+addedY);
-    z.x=z.pos;
-    z.isNew=false;
-    z.z=rz();z.zp=rzp();
-    if(z.pos>=z.cap){
-      addLog(G.cur,`<i class="ti ti-virus" style="color:#F09595;font-size:13px" aria-hidden="true"></i> ${z.t.name} #${z.id}: teljesen elterjedt! (${z.cap} ${z.t.unit}) — +${addedY} pont`);
-      z.fullySpread=true;G.spreadCount++;
-    } else {
-      addLog(G.cur,`${z.t.icon} ${z.t.name} #${z.id}: ${prev}→${z.pos} ${z.t.unit} (+${addedY}${useZ?' z×y':''})`);
+    if(G.cur<G.rounds){
+      const nextN=zoneCount(G.diff,G.cur+1);
+      const active=G.zones.filter(z=>!z.ext&&!z.fullySpread).length;
+      const toAdd=Math.max(0,nextN-active);
+      for(let i=0;i<toAdd;i++){const nz=mkZone();G.zones.push(nz);addLog(G.cur,`<i class="ti ti-biohazard" style="color:#AFA9EC;font-size:13px" aria-hidden="true"></i> Új fertőzési gócpont: ${nz.t.name} #${nz.id}`);}
     }
-  });
-  G.score+=roundY;
-  G.roundScores[G.cur]=roundY;
 
-  if(G.cur<G.rounds){
-    const nextN=zoneCount(G.diff,G.cur+1);
-    const active=G.zones.filter(z=>!z.ext&&!z.fullySpread).length;
-    const toAdd=Math.max(0,nextN-active);
-    for(let i=0;i<toAdd;i++){const nz=mkZone();G.zones.push(nz);addLog(G.cur,`<i class="ti ti-biohazard" style="color:#AFA9EC;font-size:13px" aria-hidden="true"></i> Új fertőzési gócpont: ${nz.t.name} #${nz.id}`);}
+    G.cur++;G.chosen=null;
+    if(G.cur>G.rounds){showResult();return;}
+    render();
   }
 
-  G.cur++;G.chosen=null;
-  if(G.cur>G.rounds){showResult();return;}
-  render();
-}
+  function showResult(){
+    document.getElementById('res-spread').textContent=G.score;
+    document.getElementById('res-cont').textContent=G.spreadCount;
+    document.getElementById('res-sub').textContent=`${G.rounds} kör · ${DIFF[G.diff].lbl} szint · ${G.contCount} zóna megfékezve`;
+    const rows=Object.entries(G.roundScores).map(([r,s])=>`<div class="res-row"><span>Kör ${r}</span><span class="rval">+${s} terjedési pont</span></div>`).join('');
+    document.getElementById('res-log').innerHTML=rows;
+    showScreen('result-screen');
+  }
 
-function showResult(){
-  document.getElementById('res-spread').textContent=G.score;
-  document.getElementById('res-cont').textContent=G.spreadCount;
-  document.getElementById('res-sub').textContent=`${G.rounds} kör · ${DIFF[G.diff].lbl} szint · ${G.contCount} zóna megfékezve`;
-  const rows=Object.entries(G.roundScores).map(([r,s])=>`<div class="res-row"><span>Kör ${r}</span><span class="rval">+${s} terjedési pont</span></div>`).join('');
-  document.getElementById('res-log').innerHTML=rows;
-  showScreen('result-screen');
-}
-
-function restart(){G.chosen=null;G.log=[];showScreen('setup-screen');}
-</script>
+  function restart(){G.chosen=null;G.log=[];showScreen('setup-screen');}
+  </script>
+</body>
+</html>
